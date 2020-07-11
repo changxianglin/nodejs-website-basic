@@ -12,7 +12,7 @@ const handleUserRouter = (req, res) => {
     return result.then(data => {
       if (data.username) {
         // 操作 cookie
-        res.setHeader('Set-cookie', `username=${data.username}; path=/`)
+        res.setHeader('Set-cookie', `username=${data.username}; path=/; httpOnly`)
         return new SucessModel()
       }
       return new ErrorModel('登录失败')
