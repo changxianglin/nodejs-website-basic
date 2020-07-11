@@ -1,6 +1,13 @@
 const { login } = require('../controller/user')
 const { SucessModel, ErrorModel } = require('../modal/resmodel')
 
+const getCookieExpires = () => {
+  const d = new Date()
+  d.setTime(d.getTime() + (24 * 60 * 60 * 1000))
+  console.log('d.toGMTString is: ', d.toGMTString())
+  return d.toGMTString()
+}
+
 const handleUserRouter = (req, res) => {
   const method = req.method
 
@@ -12,7 +19,7 @@ const handleUserRouter = (req, res) => {
     return result.then(data => {
       if (data.username) {
         // 操作 cookie
-        res.setHeader('Set-cookie', `username=${data.username}; path=/; httpOnly`)
+        res.setHeader('Set-cookie', `username=${data.username}; path=/; httpOnly; expires=${getCookieExpires()}`)
         return new SucessModel()
       }
       return new ErrorModel('登录失败')
