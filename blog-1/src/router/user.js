@@ -1,5 +1,6 @@
 const { login } = require('../controller/user')
 const { SucessModel, ErrorModel } = require('../modal/resmodel')
+const { set } = require('../db/redis')
 
 const getCookieExpires = () => {
   const d = new Date()
@@ -21,6 +22,9 @@ const handleUserRouter = (req, res) => {
         // 设置 session
         req.session.username = data.username
         req.session.realname = data.realname
+        // 同步到 redis 中
+        console.log('获取得到 sessionid', req.sessionId, req.session)
+        set(req.sessionId, req.session)
         console.log('req.sessiong is: ', req.session)
         // // 操作 cookie
         // res.setHeader('Set-cookie', `username=${data.username}; path=/; httpOnly; expires=${getCookieExpires()}`)
