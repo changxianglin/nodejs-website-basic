@@ -35,7 +35,8 @@
     <div id="blog-container"></div>
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-    <script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script> -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.27.0/moment.js"></script>
     <script src="https://cdn.bootcss.com/moment.js/2.23.0/locale/zh-cn.js"></script>
     <script>
         // 发送 get 请求
@@ -45,6 +46,7 @@
 
         // 显示格式化的时间
         function getFormatDate(dt) {
+            console.log('时间处理', moment(dt).format('LL'))
             return moment(dt).format('LL')
         }
 
