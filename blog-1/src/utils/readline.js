@@ -4,7 +4,7 @@ const readline = require('readline')
 
 
 // 文件名
-const fileName = path.join(__dirname, '../', '../', 'logs', 'acess.log')
+const fileName = path.join(__dirname, '../', '../', 'logs', 'access.log')
 
 // 创建 read stream
 const readStream = fs.createReadStream(fileName)
@@ -15,7 +15,7 @@ const rl = readline.createInterface({
 })
 
 let chromeNum = 0
-let num = 0
+let sum = 0
 
 // 逐行读取
 rl.on('line', (lineData) => {
