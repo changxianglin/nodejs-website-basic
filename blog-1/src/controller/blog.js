@@ -3,7 +3,7 @@ const { exec, escape } = require('../db/mysql')
 
 const getList = (author, keyword) => {
   author = escape(author)
-  keyword = escape(keyword)
+  keyword = keyword
   let sql = `select * from blogs where 1=1 `
   if (author) {
     sql += `and author=${author} `
@@ -70,7 +70,7 @@ const delBlog = (id, author) => {
   // id 是要删除博客 id
   id = escape(id)
   author = escape(author)
-  const sql = `delete from blogs where id=${id} and author=${author},s;`
+  const sql = `delete from blogs where id=${id} and author=${author};`
   return exec(sql).then(deleteData => {
     if (deleteData.affectedRows > 0) {
       return true
