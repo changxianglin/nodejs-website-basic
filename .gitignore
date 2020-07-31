@@ -4,3 +4,4 @@ node_modules
 mysql-test/index.js
 
 blog-1/src/config/db.js
+blog-1/src/config/key.js
