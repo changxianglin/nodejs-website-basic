@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "express-session": "^1.17.1"
+    "connect-redis": "^5.0.0",
+    "express-session": "^1.17.1",
+    "redis": "^3.0.2"
   }
 }
