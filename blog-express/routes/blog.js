@@ -3,6 +3,7 @@ var router = express.Router();
 
 const { getList, getDetail, newBlog, updateBlog, delBlog } = require('../controller/blog')
 const { SucessModel, ErrorModel } = require('../modal/resmodel')
+const loginCheck = require('../middleware/loginCheck')
 
 router.get('/list', function(req, res, next) {
     let author = req.query.author || ''
@@ -33,6 +34,48 @@ router.get('/detail', function(req, res, next) {
     res.json(
       new SucessModel(data)
     )
+  })
+})
+
+router.post('/new', loginCheck, (req, res, next) => {
+  const author = req.session.username
+  req.body.author = author
+  const result = newBlog(req.body)
+  return result.then(data => {
+    res.json(
+      new SucessModel(data)
+    )
+  })
+})
+
+router.post('/update', loginCheck, (req, res, next) => {
+  const result = updateBlog(req.query.id, req.body)
+  return result.then(val => {
+    if (val) {
+      res.json(
+        new SucessModel()
+      )
+    } else {
+      res.json(
+        new ErrorModel('更新博客失败')
+      )
+    }
+  })
+})
+
+router.post('/del', loginCheck, (req, res, next) => {
+  const author = req.session.username
+  const result = delBlog(req.query.id, author)
+  return result.then(val => {
+    if (val) {
+      res.json(
+        new SucessModel()
+      )
+    } else {
+      res.json(
+        new ErrorModel('删除博客失败')
+      )
+    }
   })
 })
 
