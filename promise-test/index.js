@@ -39,12 +39,36 @@ function getFileContent(filename) {
      return promise
 }
 
-getFileContent('a.json').then(aData => {
-  console.log('a data', aData)
-  return getFileContent(aData.next)
-}).then(bData => {
-  console.log('b data', bData)
-  return getFileContent(bData.next)
-}).then(cData => {
-  console.log('c data', cData)
-})
+// getFileContent('a.json').then(aData => {
+//   console.log('a data', aData)
+//   return getFileContent(aData.next)
+// }).then(bData => {
+//   console.log('b data', bData)
+//   return getFileContent(bData.next)
+// }).then(cData => {
+//   console.log('c data', cData)
+// })
+
+// async function readFileData () {
+//   // 同步写法
+//    const aData = await getFileContent('a.json')
+//    console.log('a data: ', aData)
+//    const bData = await getFileContent(aData.next)
+//    console.log('b data: ', bData)
+//    const cData = await getFileContent(bData.next)
+//    console.log('c data: ', cData)
+// }
+
+// readFileData()
+
+async function readAData() {
+  const aData = await getFileContent('a.json')
+  return aData
+}
+
+async function test() {
+  const aData = await readAData()
+  console.log(aData)
+}
+
+test()
