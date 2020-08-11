@@ -5,6 +5,8 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const session = require('koa-generic-session')
+const redis = require('koa-redis')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
@@ -30,10 +32,24 @@ app.use(views(__dirname + '/views', {
 app.use(async (ctx, next) => {
   const start = new Date()
   await next()
-  console.log('next')
   const ms = new Date() - start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
+
+// session 配置
+app.keys = ['WJiol#23123_']
+app.use(session({
+  // 配置 cookie
+  cookie: {
+    path: '/',
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000,
+  },
+  // 配置 redis
+  store: redisStore({
+    all: '127.0.0.1:6379'
+  })
+}))
 
 // routes
 app.use(index.routes(), index.allowedMethods())
