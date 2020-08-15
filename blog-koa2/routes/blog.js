@@ -27,4 +27,8 @@ router.get('/list', async function (ctx, next) {
   ctx.body = new SucessModel(listData)
 })
 
+router.get('/detail', async (ctx, next) => {
+  
+})
+
 module.exports = router
