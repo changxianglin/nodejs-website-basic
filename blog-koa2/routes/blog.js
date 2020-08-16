@@ -28,7 +28,7 @@ router.get('/list', async function (ctx, next) {
 })
 
 router.get('/detail', async (ctx, next) => {
-  
+  console.log('task')
 })
 
 module.exports = router
