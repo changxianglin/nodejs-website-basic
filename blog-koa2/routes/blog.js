@@ -28,7 +28,35 @@ router.get('/list', async function (ctx, next) {
 })
 
 router.get('/detail', async (ctx, next) => {
-  console.log('task...')
+  const data = await getDetail(ctx.query.id)
+  ctx.body = new SucessModel(data)
+})
+
+router.post('/new', loginCheck, async (ctx, next) => {
+  const author = ctx.session.username
+  const body = ctx.request.body
+  body.author = author
+  const data = await newBlog(body)
+  ctx.body = new SucessModel(data)
+})
+
+router.post('/update', loginCheck, async (ctx, next) => {
+  const val = await updateBlog(ctx.query.id, ctx.body) 
+  if (val) {
+    ctx.body = new SucessModel()
+  } else {
+    ctx.body = new ErrorModel('更新博客失败')
+  }
+})
+
+router.post('/del', loginCheck, async (ctx, next) => {
+  const author = ctx.session.username
+  const val = await delBlog(ctx.query.id, author)
+  if (val) {
+    ctx.body = new SucessModel()
+  } else {
+    ctx.body = new ErrorModel('删除博客失败')
+  }
 })
 
 module.exports = router
